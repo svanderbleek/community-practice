@@ -88,12 +88,6 @@
       moved
       rover)))
 
-(def p1 (:plateau (parse ex1)))
-(def r1 (:rover-1 (parse ex1)))
-(def c1 (:commands-1 (parse ex1)))
-(def r2 (:rover-2 (parse ex1)))
-(def c2 (:commands-2 (parse ex1)))
-
 (defn exec-commands [rover commands plateau block]
   (println "moving")
   (loop [remain commands
