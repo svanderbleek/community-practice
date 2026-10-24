@@ -29,8 +29,6 @@
    (partial ->rover 2)
    (partial ->commands 2)])
 
-(second (consume (first (consume (re-seq #"\d|[A-Z]|\n" ex1)))))
-
 (defn parse [input]
   (loop [tokens  (re-seq #"\d|[A-Z]|\n" input)
          parsing structure
@@ -82,20 +80,15 @@
 (defn exec-command [rover command plateau block]
   (let [moved ((get commands->action command) rover)
         pos   ((juxt :x :y) moved)]
-    (println pos)
     (if (and (in-plateau? plateau pos)
              (not-blocked? block pos))
       moved
       rover)))
 
 (defn exec-commands [rover commands plateau block]
-  (println "moving")
-  (loop [remain commands
-         moved  rover]
-    (if (empty? remain)
-      moved
-      (recur (rest remain)
-             (exec-command moved (first remain) plateau block)))))
+  (reduce (fn [moved command] (exec-command moved command plateau block))
+          rover
+          commands))
 
 (defn b-key [n]
   (case n
