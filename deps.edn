@@ -1,0 +1,2 @@
+{:paths ["async"]
+ :deps {org.clojure/core.async {:mvn/version "1.9.865"}}}
